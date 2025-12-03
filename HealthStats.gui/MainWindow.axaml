@@ -1,0 +1,116 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:logic="clr-namespace:HealthStats.logic;assembly=HealthStats.logic"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+        x:Class="HealthStats.gui.MainWindow"
+        Title="HealthStats Kalkulačka"
+        Width="850" Height="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F2F5"> <Window.Styles>
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#1a1a1a"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+        <Style Selector="TextBlock.label">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Margin" Value="0,10,0,5"/>
+             <Setter Property="Foreground" Value="#555555"/>
+        </Style>
+        <Style Selector="TextBox, ComboBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </Window.Styles>
+
+
+    <Border Background="White" Margin="30" CornerRadius="12" BoxShadow="0 4 10 0 #20000000">
+        <Grid ColumnDefinitions="1.2*, *"> <StackPanel Grid.Column="0" Margin="30">
+                <TextBlock Text="Tvoje údaje" Classes="h1"/>
+
+                <TextBlock Text="Váha (kg)" Classes="label"/>
+                <TextBox x:Name="InputWeight" Watermark="Např. 75.5" />
+
+                <TextBlock Text="Výška (metry!)" Classes="label"/>
+                <TextBox x:Name="InputHeight" Watermark="Např. 1.82 (použij tečku/čárku dle systému)" />
+
+                <TextBlock Text="Věk" Classes="label"/>
+                <TextBox x:Name="InputAge" Watermark="Např. 25" />
+
+                <Grid ColumnDefinitions="*, 15, *">
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Pohlaví" Classes="label"/>
+                         <ComboBox x:Name="ComboGender" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Aktivita" Classes="label"/>
+                        <ComboBox x:Name="ComboActivity" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </Grid>
+
+                <Button Content="Vypočítat výsledky"
+                        Click="CalculateBtn_Click"
+                        Margin="0,30,0,0"
+                        Height="50"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Background="#007AFF"
+                        CornerRadius="8"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Cursor="Hand"/>
+            </StackPanel>
+
+
+            <Border Grid.Column="1" Background="#F8F9FA" CornerRadius="0,12,12,0">
+                <StackPanel Margin="30" VerticalAlignment="Center">
+                    <TextBlock Text="Výsledky" Classes="h1" HorizontalAlignment="Center"/>
+
+                    <Border x:Name="BmiIndicatorBorder"
+                            Width="180" Height="180"
+                            Background="#E0E0E0"
+                            CornerRadius="100"
+                            Margin="0,0,0,30"
+                            HorizontalAlignment="Center"
+                            BoxShadow="0 4 15 0 #30000000">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="BMI" HorizontalAlignment="Center" Foreground="White" Opacity="0.8"/>
+                            <TextBlock x:Name="TextBmiValue" Text="--.-" Foreground="White" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TextBmiCategory" Text="Zadej data" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto,Auto,Auto" Margin="20,0">
+                        <Grid.Styles>
+                            <Style Selector="TextBlock.resLabel">
+                                <Setter Property="FontWeight" Value="Medium"/>
+                                <Setter Property="Foreground" Value="#666666"/>
+                                <Setter Property="Margin" Value="0,0,15,15"/>
+                            </Style>
+                            <Style Selector="TextBlock.resValue">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </Grid.Styles>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="BMR (Klidový):" Classes="resLabel"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="TextBmr" Text="-- kcal" Classes="resValue"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="TDEE (Celkový):" Classes="resLabel"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="TextTdee" Text="-- kcal" Classes="resValue"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ideální váha:" Classes="resLabel"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="TextIdealWeight" Text="-- kg" Classes="resValue" FontSize="16"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
