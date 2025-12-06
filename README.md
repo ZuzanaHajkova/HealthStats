@@ -19,7 +19,7 @@ Aplikace počítá následující údaje na základě věku, váhy, výšky, poh
 * **BMI (Body Mass Index):** Včetně slovního hodnocení (např. Nadváha) a barevné indikace.
 * **BMR (Bazální metabolismus):** Výpočet pomocí Harris-Benedictovy rovnice. Udává, kolik kalorií tělo spálí v klidovém režimu.
 * **TDEE (Celkový denní energetický výdej):** Kalorická potřeba upravená o faktor fyzické aktivity.
-* **Ideální váha:** Doporučené váhové rozmezí pro udržení zdravého BMI.
+* **Ideální váha:** Doporučená váha pro udržení zdravého BMI.
 
 ## Použité technologie
 
