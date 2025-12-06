@@ -1,5 +1,6 @@
 ﻿using System;
 using HealthStats.logic;
+using System.Globalization;
 
 namespace HealthStats.app
 {
@@ -10,24 +11,46 @@ namespace HealthStats.app
         static void Main(string[] args)
         {
             Console.WriteLine("HEALTHSTATS KALKULAČKA");
-            
-            //bereme vahu, vysku, vek
-            double weight = GetDouble("Zadejte vaši váhu v kg: ");
-            double height = GetHeight("Zadejte vaši výšku v metrech: ");
-            double age = GetDouble("Zadejte váš věk: ");
-            
-            Gender gender = GetGender();
-            Activity activity = GetActivity();
-            
-            //aktivita a gender
-            
-            //vypocet
-            double bmi = healthCalculator.CalculateBmi(height, weight);
-            string bmiCat = healthCalculator.BmiCategory(bmi);
-            double bmr = healthCalculator.CalculateBmr(height, weight, age, gender);
-            double idealWeight = healthCalculator.CalculateIdealWeight(height, gender);
-            double tdee = healthCalculator.CalculateTdee(bmr, activity);
-            
+            try
+            {
+                //bereme vahu, vysku, vek
+                double weight = GetDouble("Zadejte vaši váhu v kg: ");
+                double height = GetDouble("Zadejte vaši výšku v metrech: ");
+                double age = GetDouble("Zadejte váš věk: ");
+
+                Gender gender = GetGender();
+                Activity activity = GetActivity();
+
+                //aktivita a gender
+
+                //vypocet
+                double bmi = healthCalculator.CalculateBmi(height, weight);
+                string bmiCat = healthCalculator.BmiCategory(bmi);
+                double bmr = healthCalculator.CalculateBmr(height, weight, age, gender);
+                double idealWeight = healthCalculator.CalculateIdealWeight(height, gender);
+                double tdee = healthCalculator.CalculateTdee(bmr, activity);
+
+                Results(bmi, bmiCat, bmr, idealWeight, tdee);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nCHYBA VE VÝPOČTU!");
+                Console.WriteLine(ex.Message);
+                Console.ResetColor();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Nastala neočekávaná chyba.");
+            }
+          
+            Console.WriteLine();
+            Console.WriteLine("Stiskněte libovolnou klávesu pro ukončení...");
+            Console.ReadKey();
+        }
+
+        static void Results(double bmi, string bmiCat, double bmr, double idealWeight, double tdee)
+        {
             //vypis vysledku
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -39,11 +62,8 @@ namespace HealthStats.app
             Console.WriteLine($"TDEE (aktivní): {tdee:F0} kcal/den");
             Console.WriteLine($"Ideální váha:   {idealWeight}");
 
-            Console.WriteLine();
-            Console.WriteLine("Stiskni libovolnou klávesu pro ukončení...");
-            Console.ReadKey();
         }
-
+       
         static double GetDouble(string text)
         {
             double result;
@@ -51,37 +71,12 @@ namespace HealthStats.app
             {
                 Console.Write(text);
                 string input = Console.ReadLine();
-                if (double.TryParse(input, out result) && result > 0)
+                if (double.TryParse(input,NumberStyles.Any, CultureInfo.CurrentCulture, out result))
                 {
                     return result;
                 }
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Chyba! Zadej prosím platné kladné číslo.");
-                Console.ResetColor();
-            }
-        }
-
-        static double GetHeight(string text)
-        {
-            double result;
-            while (true)
-            {
-                Console.Write(text);
-                string input = Console.ReadLine();
-                
-                if (double.TryParse(input, out result) && result > 0)
-                {
-                    if (result > 3)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine("Prosím zadejte platnou výšku v metrech.");
-                        Console.ResetColor();
-                        continue;//vrátíme se na začátek smyčky
-                    }
-                    return result;
-                }
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Chyba! Zadej prosím kladné číslo.");
+                Console.WriteLine("Chyba! Zadejte prosím platné číslo.(pozor na desetinnou tečku/čárku)");
                 Console.ResetColor();
             }
         }
@@ -96,14 +91,15 @@ namespace HealthStats.app
             {
                 Console.Write("vaše volba: ");
                 string input = Console.ReadLine();
-                if (input == "1")
+                switch (input)
                 {
-                    return Gender.Male;
-                }
-
-                if (input == "2")
-                {
-                    return Gender.Female;
+                    case "1": return Gender.Male;
+                    case "2": return Gender.Female;
+                    default: 
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Neplatná volba, zkuste to znovu."); 
+                        Console.ResetColor();
+                        break;
                 }
             }
         }
@@ -128,7 +124,10 @@ namespace HealthStats.app
                     case "3": return Activity.ModeratelyActive;
                     case "4": return Activity.VeryActive;
                     case "5": return Activity.ExtraActive;
-                    default: Console.WriteLine("Neplatná volba, zkuste to znovu.");
+                    default: 
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Neplatná volba, zkuste to znovu."); 
+                        Console.ResetColor();
                         break;
                 }
             }

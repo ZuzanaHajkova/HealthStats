@@ -17,8 +17,31 @@
     
     public class HealthCalculator
     {
+        public void ValidateHeight(double height)
+        {
+            if (height < 0 | height > 3)
+            {
+                throw new ArgumentOutOfRangeException("Zadejte prosím kladnou platnou výšku v metrech.");
+            }
+        }
+        public void ValidateWeight(double weight)
+        {
+            if (weight < 0)
+            {
+                throw new ArgumentOutOfRangeException("Váha musí být kladná");
+            }
+        }
+        public void ValidateAge(double age)
+        {
+            if (age < 0)
+            {
+                throw new ArgumentOutOfRangeException("Věk musí být kladný");
+            }
+        }
         public double CalculateBmi(double height, double weight)
         {
+            ValidateHeight(height);
+            ValidateWeight(weight);
             return weight/(height*height);
         }
 
@@ -29,11 +52,14 @@
             if (bmi >= 25 && bmi <= 29.9) return "nadváha";
             if (bmi >= 30 && bmi <= 34.9) return "obezita I. třídy";
             if (bmi >= 35 && bmi <= 39.9) return "obezita II. třídy";
-            return "obezita I. třídy";
+            return "obezita II. třídy";
         }
 
         public double CalculateBmr(double height, double weight, double age, Gender gender)//výpočet podle Harris-Benedict rovnice
         {
+            ValidateHeight(height);
+            ValidateWeight(weight);
+            ValidateAge(age);
             height = height * 100;//do vzorce chceme výšku v cm
             if (gender == Gender.Male)
             {
@@ -47,6 +73,7 @@
 
         public double CalculateIdealWeight(double height, Gender gender) //B. J. Devine Formula
         {
+            ValidateHeight(height);
             double heightover5 = (height*100) - 152;//pro výpočet potřebujeme výšku nad pět stop
             if (gender == Gender.Male)
             {

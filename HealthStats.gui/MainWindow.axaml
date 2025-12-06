@@ -30,13 +30,13 @@
 
     <Border Background="White" Margin="30" CornerRadius="12" BoxShadow="0 4 10 0 #20000000">
         <Grid ColumnDefinitions="1.2*, *"> <StackPanel Grid.Column="0" Margin="30">
-                <TextBlock Text="Tvoje údaje" Classes="h1"/>
+                <TextBlock Text="Vaše údaje" Classes="h1"/>
 
                 <TextBlock Text="Váha (kg)" Classes="label"/>
-                <TextBox x:Name="InputWeight" Watermark="Např. 75.5" />
+                <TextBox x:Name="InputWeight" Watermark="Např. 75,5" />
 
                 <TextBlock Text="Výška (metry!)" Classes="label"/>
-                <TextBox x:Name="InputHeight" Watermark="Např. 1.82 (použij tečku/čárku dle systému)" />
+                <TextBox x:Name="InputHeight" Watermark="Např. 1,82 (použijte čárku/tečku dle systému)" />
 
                 <TextBlock Text="Věk" Classes="label"/>
                 <TextBox x:Name="InputAge" Watermark="Např. 25" />
@@ -82,7 +82,7 @@
                         <StackPanel VerticalAlignment="Center">
                             <TextBlock Text="BMI" HorizontalAlignment="Center" Foreground="White" Opacity="0.8"/>
                             <TextBlock x:Name="TextBmiValue" Text="--.-" Foreground="White" FontSize="48" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <TextBlock x:Name="TextBmiCategory" Text="Zadej data" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TextBmiCategory" Text="Zadejte data" Foreground="White" FontSize="16" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
 
