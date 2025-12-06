@@ -1,19 +1,17 @@
 ## Řešení 
 rozděleno do tří samostatných projektů
 
-1.  **`HealthStats.logic`** (Class Library)
+1.  **HealthStats.logic** (knihovna)
     * Obsahuje veškerou matematiku a algoritmy.
-    * Nezávislá na platformě (použitelná kdekoliv).
     * Obsahuje výpočty pro BMI, BMR, TDEE a ideální váhu.
 
-2.  **`HealthStats.app`** (Konzolová aplikace)
+2.  **HealthStats.app** (Konzolová aplikace)
     * Jednoduché textové rozhraní pro rychlé výpočty.
     * Implementuje robustní validaci vstupů (ošetření chyb uživatele).
 
-3.  **`HealthStats.gui`** (GUI Aplikace)
-    * Moderní grafické rozhraní postavené na Avalonia UI.
+3.  **HealthStats.gui** (GUI Aplikace)
+    * Grafické rozhraní postavené na Avalonia UI.
     * Vizuální indikátor BMI (měnící se barva podle kategorie).
-    * Responzivní design.
       
 ## Funkce
 Aplikace počítá následující údaje na základě věku, váhy, výšky, pohlaví a aktivity:
