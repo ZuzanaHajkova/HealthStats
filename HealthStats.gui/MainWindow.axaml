@@ -107,7 +107,7 @@
                         <TextBlock Grid.Row="1" Grid.Column="1" x:Name="TextTdee" Text="-- kcal" Classes="resValue"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Ideální váha:" Classes="resLabel"/>
-                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="TextIdealWeight" Text="-- kg" Classes="resValue" FontSize="16"/>
+                        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="TextIdealWeight" Text="-- kg" Classes="resValue" FontSize="16" TextWrapping="Wrap" MaxWidth="160"/>
                     </Grid>
                 </StackPanel>
             </Border>

@@ -27,7 +27,7 @@ namespace HealthStats.app
                 double bmi = healthCalculator.CalculateBmi(height, weight);
                 string bmiCat = healthCalculator.BmiCategory(bmi);
                 double bmr = healthCalculator.CalculateBmr(height, weight, age, gender);
-                double idealWeight = healthCalculator.CalculateIdealWeight(height, gender);
+                string idealWeight = healthCalculator.IdealWeightMessage(height, gender);
                 double tdee = healthCalculator.CalculateTdee(bmr, activity);
 
                 Results(bmi, bmiCat, bmr, idealWeight, tdee);
@@ -49,7 +49,7 @@ namespace HealthStats.app
             Console.ReadKey();
         }
 
-        static void Results(double bmi, string bmiCat, double bmr, double idealWeight, double tdee)
+        static void Results(double bmi, string bmiCat, double bmr, string idealWeight, double tdee)
         {
             //vypis vysledku
             Console.WriteLine();

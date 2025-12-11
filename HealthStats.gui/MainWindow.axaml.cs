@@ -46,13 +46,13 @@ public partial class MainWindow : Window
             return;
         }
 
-        if (!int.TryParse(InputAge.Text, out int age))
+        if (!double.TryParse(InputAge.Text, NumberStyles.Any,CultureInfo.CurrentCulture, out double age))
         {
             ShowErrorDialog("Chybný vstup","Zadejte prosím platný věk. ");
             return;
         }
-        var gender = (Gender)ComboGender.SelectedItem;
-        var activity = (Activity)ComboActivity.SelectedItem;
+        var gender = (Gender)ComboGender.SelectedItem!;
+        var activity = (Activity)ComboActivity.SelectedItem!;
         
         try
         {
@@ -60,12 +60,12 @@ public partial class MainWindow : Window
             double bmi = _calculator.CalculateBmi(height, weight);
             string bmiCat = _calculator.BmiCategory(bmi);
             double bmr = _calculator.CalculateBmr(height, weight, age, gender);
-            double idealWeight = _calculator.CalculateIdealWeight(height, gender);
+            string idealWeight = _calculator.IdealWeightMessage(height, gender);
             double tdee = _calculator.CalculateTdee(bmr, activity);
 
            Results(bmi, bmiCat, bmr, idealWeight, tdee);
         }
-        catch (ArgumentException ex)
+        catch (ArgumentOutOfRangeException ex)
         {
             await ShowErrorDialog("Chyba výpočtu", ex.Message);
         }
@@ -90,13 +90,13 @@ public partial class MainWindow : Window
         });
         await box.ShowWindowDialogAsync(this);//dokud uzivatel neodklikne ok, nemuze dale pracovat s aplikaci
     }
-    private void Results(double bmi, string bmiCat, double bmr, double idealWeight, double tdee)
+    private void Results(double bmi, string bmiCat, double bmr, string idealWeight, double tdee)
     {
         //zobrazení výsledků
         TextBmiValue.Text = bmi.ToString("F1");//zaokrouhlujeme na 1 místo
         TextBmiCategory.Text = bmiCat;
         TextBmr.Text = $"{bmr:F0} kcal";
-        TextIdealWeight.Text = idealWeight.ToString("F1");
+        TextIdealWeight.Text = idealWeight;
         TextTdee.Text = $"{tdee:F0} kcal";
         
         //barva indikatoru
